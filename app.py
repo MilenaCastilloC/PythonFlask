@@ -38,3 +38,7 @@ app_context.push()
 
 api = Api(app)
 api.add_resource(VistaUsuario, "/usuario/<int:id_usuario>")
+
+
+if __name__ == '__main__':
+    app.run()
