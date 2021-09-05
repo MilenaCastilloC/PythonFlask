@@ -6,26 +6,27 @@ from flask import Flask
 
 
 def create_app(config_dict: Dict = {}):
-    app = Flask(__name__)
-    app.config[
-        "SQLALCHEMY_DATABASE_URI"
-    ] = f'sqlite:///{config_dict.get("DATABASE", "clinicaABC")}.db'
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config["JWT_SECRET_KEY"] = "frase-secreta"
-    app.config["PROPAGATE_EXCEPTIONS"] = True
-    app.config["TESTING"] = config_dict.get("TESTING", False)
+    app = Flask(__name__)    
     return app
 
-class VistaUsuario(Resource):
-    def post(self, id_usuario):       
-        request.json["id_usuario"]=id_usuario;
+class VistaPaciente(Resource):
+    def post(self, id_paciente):       
+        request.json["id_usuario"]=id_paciente;
         return request.json
 
-    def get(self, id_usuario):
+    def get(self, id_paciente):
         data={
             "nombre" : "Alberto",
             "contrasena" : "Perez",
-            "id" : id_usuario
+            "id" : id_paciente
+        }
+        return data
+
+class HealthCheck(Resource):    
+
+    def get(self):
+        data={
+            "echo" : "ok"
         }
         return data
 
@@ -36,7 +37,8 @@ app_context = app.app_context()
 app_context.push()
 
 api = Api(app)
-api.add_resource(VistaUsuario, "/usuario/<int:id_usuario>")
+api.add_resource(VistaPaciente, "/paciente/<int:id_paciente>")
+api.add_resource(HealthCheck, "/paciente/healtchek")
 
 
 if __name__ == '__main__':
