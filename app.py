@@ -16,16 +16,17 @@ class VistaPaciente(Resource):
             "nombre" : request.json["nombre"],
             "documento" : request.json["documento"]
         }
-        return request.json
         return data
+
 
     def get(self, id_paciente):
         data={
             "id" : id_paciente,
             "nombre" : random.randbytes(30),
-            "documento" : random.randint(100, 999)
+            "documento" : random.randint(1, 999999999)
         }
         return data
+
 
 class HealthCheck(Resource):    
 
