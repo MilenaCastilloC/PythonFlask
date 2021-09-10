@@ -3,7 +3,7 @@ from flask_restful import Resource,Api
 from flask import Flask
 from typing import Dict
 from flask import Flask
-
+import random
 
 def create_app(config_dict: Dict = {}):
     app = Flask(__name__)    
@@ -11,14 +11,19 @@ def create_app(config_dict: Dict = {}):
 
 class VistaPaciente(Resource):
     def post(self, id_paciente):       
-        request.json["id_usuario"]=id_paciente;
+        data={
+            "id" : id_paciente,
+            "nombre" : request.json["nombre"],
+            "documento" : request.json["documento"]
+        }
         return request.json
+        return data
 
     def get(self, id_paciente):
         data={
-            "nombre" : "Alberto",
-            "contrasena" : "Perez",
-            "id" : id_paciente
+            "id" : id_paciente,
+            "nombre" : random.randbytes(30),
+            "documento" : random.randint(100, 999)
         }
         return data
 
