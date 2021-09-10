@@ -4,6 +4,7 @@ from flask import Flask
 from typing import Dict
 from flask import Flask
 import random
+import string
 
 def create_app(config_dict: Dict = {}):
     app = Flask(__name__)    
@@ -22,11 +23,11 @@ class VistaPaciente(Resource):
     def get(self, id_paciente):
         data={
             "id" : id_paciente,
-            "nombre" : random.randbytes(30),
+            "nombre" : random.choice(string.ascii_letters),
             "documento" : random.randint(1, 999999999)
         }
         return data
-
+ 
 
 class HealthCheck(Resource):    
 
